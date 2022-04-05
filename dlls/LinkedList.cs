@@ -37,6 +37,18 @@ namespace LinkedList {
             }
         }
 
+        public Node<T> Head {
+            get {
+                return head;
+            }
+        }
+
+        public Node<T> Tail {
+            get {
+                return tail;
+            }
+        }
+
         public LinkedList() {
             head = null;
             tail = null;
@@ -164,6 +176,56 @@ namespace LinkedList {
             }
 
             return stream.ToString();
+        }
+    }
+
+    public static class SortingExtension {
+        public static void SortInplace<T>(this LinkedList<T> ll, IComparer<T> comparer) {
+            if (ll == null || ll.Length <=  1) {
+                return;
+            }
+
+            Helper<T>(ll.Head, ll.Tail,  comparer);
+        }
+
+        internal static void Helper<T>(Node<T> head, Node<T> tail, IComparer<T> comparer) {
+            if (head == tail) {
+                return;
+            }
+
+            // note that here we could not improve this easily 
+            // via randomisation, as it won't be O(1) to get
+            // some node without additional memory
+            var pivot = tail;
+            var cur = head;
+            while (cur.next != pivot) {
+                if (comparer.Compare(cur.data, pivot.data) > 0) {
+                    Swap(pivot.prev, pivot);
+                    Swap(pivot, cur);
+                    pivot = pivot.prev;
+                } else {
+                    cur = cur.next;
+                }
+            }
+
+            if (comparer.Compare(cur.data, pivot.data) > 0) {
+                Swap(cur,  pivot);
+                pivot = cur;
+            }
+
+            if (head != pivot) {
+                Helper(head, pivot.prev, comparer);
+            }
+
+            if (tail != pivot) {
+                Helper(pivot.next,  tail, comparer);
+            }
+        }
+
+        internal static void Swap<T>(Node<T> a, Node<T> b) {
+            var tmp = a.data;
+            a.data = b.data;
+            b.data = tmp;
         }
     }
 }

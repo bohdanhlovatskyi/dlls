@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace dlls
 {
@@ -20,6 +21,9 @@ namespace dlls
             Console.WriteLine(ll);
 
             Console.WriteLine(ll.Sorted(x => x.data));
+
+            ll.SortInplace(Comparer<int>.Default);
+            Console.WriteLine(ll);
         }
     }
 }
