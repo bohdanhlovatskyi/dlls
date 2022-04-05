@@ -4,7 +4,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace LinkedList {
+namespace MyLinkedList {
 
     public class Node<T> {
         public Node<T> next { get; set; }
@@ -23,7 +23,7 @@ namespace LinkedList {
         }
     }
 
-    public class LinkedList<T> : IEnumerable<Node<T>> {    
+    public class MyLinkedList<T> : IEnumerable<Node<T>> {    
         private Node<T> head;
         private Node<T> tail;
 
@@ -49,7 +49,7 @@ namespace LinkedList {
             }
         }
 
-        public LinkedList() {
+        public MyLinkedList() {
             head = null;
             tail = null;
         }
@@ -128,6 +128,11 @@ namespace LinkedList {
             return RemoveNode(first);
         }
 
+        public Node<T> RemoveIf(Func<Node<T>, bool> f) {
+            var first = this.First<Node<T>>(f);
+            return RemoveNode(first);
+        }
+
         public Node<T> Remove(int pos) {
             var nth = this.Skip(pos).FirstOrDefault();
             return RemoveNode(nth);
@@ -156,9 +161,9 @@ namespace LinkedList {
             return this.First<Node<T>>(node => node.data.Equals(key));
         }
 
-        public LinkedList<T> Sorted(Func<Node<T>, T> comparator) {
+        public MyLinkedList<T> Sorted(Func<Node<T>, T> comparator) {
 
-            var temp = new LinkedList<T>();
+            var temp = new MyLinkedList<T>();
             var ordered = this.OrderBy(comparator).AsEnumerable();
 
             foreach(var node in ordered) {
@@ -179,10 +184,15 @@ namespace LinkedList {
         }
     }
 
+    // Note this is not really necessary, though I wanted to practive a little bit
     public static class SortingExtension {
-        public static void SortInplace<T>(this LinkedList<T> ll, IComparer<T> comparer) {
+        public static void SortInplace<T>(this MyLinkedList<T> ll, IComparer<T> comparer) {
             if (ll == null || ll.Length <=  1) {
                 return;
+            }
+
+            if (ll.Head  == null || ll.Tail == null) {
+                throw new NullReferenceException("Bad linked list passed");
             }
 
             Helper<T>(ll.Head, ll.Tail,  comparer);
