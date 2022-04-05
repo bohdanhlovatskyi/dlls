@@ -16,6 +16,10 @@ namespace dlls
             var mc  =  MorseCode.getMorseCode();
             Console.WriteLine(mc);
 
+            // sort the list by its morse data
+            mc.SortInplace(Comparer<(char, int)>.Create((c1, c2) => c1.Item2.CompareTo(c2.Item2)));
+            Console.WriteLine(mc);
+
             // delete those: F, R, B, Z, A, M, G, R, C, Q, Y, C, N
             char[] to_delete = new[] {'F', 'R', 'B', 'Z', 'A', 'M', 'G', 'R', 'C', 'Q', 'Y',  'C', 'N'};
 
@@ -27,10 +31,6 @@ namespace dlls
                     continue;
                 }
             }
-            Console.WriteLine(mc);
-
-            // sort the list by its morse data
-            mc.SortInplace(Comparer<(char, int)>.Create((c1, c2) => c1.Item2.CompareTo(c2.Item2)));
             Console.WriteLine(mc);
         }
 
