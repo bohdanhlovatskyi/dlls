@@ -10,7 +10,10 @@ namespace dlls
         {
 
             var ll = new LinkedList<int>();
-            Console.WriteLine("Hello World!");
+            ll.PushFront(10);
+            ll.PushFront(14);
+            ll.PushFront(12);
+            Console.WriteLine(ll);
         }
     }
 }
