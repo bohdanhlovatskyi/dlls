@@ -18,6 +18,8 @@ namespace dlls
             ll.Remove(2);
 
             Console.WriteLine(ll);
+
+            Console.WriteLine(ll.Sorted(x => x.data));
         }
     }
 }

@@ -70,6 +70,23 @@ namespace LinkedList {
             itemCount++;
         }
 
+        public void PushBack(T val) {
+            var node = new Node<T>(val);
+            if (head == null) {
+                head = node;
+            }
+
+            if (tail != null) {
+                tail.next = node;
+            }
+
+            node.next = null;
+            node.prev = tail;
+            tail = node;
+
+            itemCount++;
+        }
+
         public void Insert(T val, int pos) {
             var nth = this.Skip(pos - 1).FirstOrDefault();
             
@@ -117,7 +134,26 @@ namespace LinkedList {
                 node.prev.next = node.next;
             }
 
+            itemCount--;
+
             return node;
+        }
+
+
+        public Node<T> findByKey(T key) {
+            return this.First<Node<T>>(node => node.data.Equals(key));
+        }
+
+        public LinkedList<T> Sorted(Func<Node<T>, T> comparator) {
+
+            var temp = new LinkedList<T>();
+            var ordered = this.OrderBy(comparator).AsEnumerable();
+
+            foreach(var node in ordered) {
+                temp.PushBack(node.data);
+            }
+
+            return temp;
         }
 
         public override string ToString()
