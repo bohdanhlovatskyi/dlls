@@ -1,0 +1,9 @@
+.vs
+.vscode
+dlls/bin
+dlls/obj
+
+tests/bin
+tests/obj
+
+.DS_Store
