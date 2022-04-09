@@ -1,5 +1,7 @@
 ## Doubly linked list
 
+Presentation: https://youtu.be/C1JVsdnGBew
+
 - all the work tested only on MacOS
 - to execute:
 
